@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+void display(int* nums,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",nums[i]);
+    }
+    printf("\n");
+}
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n)
+{
+    int nums[n+m],i=0,j=0,k=0;
+    while(i<m && j<n)
+    {
+        if(nums1[i]<nums2[j])
+        {
+            nums[k]=nums1[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            nums[k]=nums2[j];
+            k++;
+            j++;
+        }
+    }
+    while(i!=m)
+    {
+        nums[k]=nums1[i];
+        k++;
+        i++;
+    }
+    while(j!=n)
+    {
+        nums[k]=nums2[j];
+        j++;
+        k++;
+    }
+    for(int l=0;l<n+m;l++)
+    {
+        nums1[l]=nums[l];
+    }
+}
+void main()
+{
+    int l1[100],l2[100],numsSize1,numsSize2,n,m;
+    printf("Enter first array size\n");
+    scanf("%d",&numsSize1);
+    printf("Enter second array size\n");
+    scanf("%d",&numsSize2);
+    printf("Enter values in array 1\n");
+    for(int i=0;i<numsSize1;i++)
+    {
+        scanf("%d",&l1[i]);
+    }
+    printf("Enter number of values to be merged in array1\n");
+    scanf("%d",&m);
+    printf("Enter values in array 2\n");
+    for(int i=0;i<numsSize2;i++)
+    {
+        scanf("%d",&l2[i]);
+    }
+    printf("Enter number of values to be merged in array2\n");
+    scanf("%d",&n);
+    printf("Display array1\n");
+    display(l1,numsSize1);
+    printf("display array2\n");
+    display(l2,numsSize2);
+    merge(l1,numsSize1,m,l2,numsSize2,n);
+    display(l1,n+m);
+}
