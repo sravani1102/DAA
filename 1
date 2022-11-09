@@ -1,0 +1,112 @@
+https://leetcode.com/problems/merge-two-sorted-lists/
+
+#include<stdio.h>
+#include<stdlib.h>
+struct ListNode
+{
+    int val;
+    struct ListNode *next;
+};
+struct ListNode* create(struct ListNode* l)
+{
+    struct ListNode *new,*temp=NULL;
+    int x;
+    printf("Enter a value(Enter -1 to exit)\n");
+    scanf("%d",&x);
+    while(x!=-1)
+    {
+        new=(struct ListNode*)malloc(sizeof(struct ListNode));
+        new->val=x;
+        new->next=NULL;
+        if(l==NULL)
+        {
+            l=new;
+            temp=l;
+        }
+        else
+        {
+            temp->next=new;
+            temp=new;
+        }
+        printf("Enter a value(Enter -1 to exit)\n");
+        scanf("%d",&x);
+    }
+    return l;
+}
+void display(struct ListNode* l)
+{
+    struct ListNode* temp=l;
+    while(temp!=NULL)
+    {
+        printf("%d->",temp->val);
+        temp=temp->next;
+    }
+    printf("\n");
+}
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){
+    struct ListNode* new,*first=NULL,*last;
+    if(list1==NULL)
+    {
+        return list2;
+    }
+    else if(list2==NULL)
+    {
+        return list1;
+    }
+    while(list1!=NULL && list2!=NULL)
+    {
+        new=(struct ListNode*)malloc(sizeof(struct ListNode));
+        if(list1->val<list2->val)
+        {
+            new->val=list1->val;
+            new->next=NULL;
+            list1=list1->next;
+        }
+        else
+        {
+            new->val=list2->val;
+            new->next=NULL;
+            list2=list2->next;
+        }
+        if(first==NULL)
+        {
+            first=new;
+            last=first;
+        }
+        else
+        {
+            last->next=new;
+            last=new;
+        }
+    }
+    while(list1!=NULL)
+    {
+        new=(struct ListNode*)malloc(sizeof(struct ListNode));
+        new->val=list1->val;
+        new->next=NULL;
+        last->next=new;
+        last=new;
+        list1=list1->next;
+    }
+    while(list2!=NULL)
+    {
+        new=(struct ListNode*)malloc(sizeof(struct ListNode));
+        new->val=list2->val;
+        new->next=NULL;
+        last->next=new;
+        last=new;
+        list2=list2->next;
+    }
+    return first;
+
+}
+void main()
+{
+  struct ListNode *l1=NULL,*l2=NULL,*l3;
+  l1=create(l1);
+  l2=create(l2);
+  display(l1);
+  display(l2);
+  l3=mergeTwoLists(l1,l2);
+  display(l3);
+}
