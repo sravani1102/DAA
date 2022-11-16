@@ -1,0 +1,73 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+#include<stdio.h>
+#include<stdlib.h>
+int b[100000];
+void merge(int* nums,int l,int m,int h)
+{
+    int i=l,j=m+1;
+    int k=l;
+    while(i<=m && j<=h)
+    {
+        if(nums[i]>nums[j])
+        {
+            b[k]=nums[j];
+            k++;
+            j++;
+        }
+        else
+        {
+            b[k]=nums[i];
+            k++;
+            i++;
+        }
+    }
+    while(i<=m)
+    {
+        b[k]=nums[i];
+        i++;
+        k++;
+    }
+    while(j<=h)
+    {
+        b[k]=nums[j];
+        j++;
+        k++;
+    }
+    for(int i=l;i<=h;i++)
+    {
+        nums[i]=b[i];
+    }
+}
+void mergeSort(int* nums,int l,int h)
+{
+    int mid;
+    if(l<h)
+    {
+        mid=(l+h)/2;
+        mergeSort(nums,l,mid);
+        mergeSort(nums,mid+1,h);
+        merge(nums,l,mid,h);
+    }
+}
+int* sortArray(int* nums, int numsSize, int* returnSize){
+    mergeSort(nums,0,numsSize-1); 
+    *returnSize=numsSize;
+    return nums;
+}
+int main()
+{
+    int nums[100],numsSize,returnSize=0;
+    scanf("%d",&numsSize);
+    for(int i=0;i<numsSize;i++)
+    {
+        scanf("%d",&nums[i]);
+    }
+    int *b;
+    b=sortArray(nums,numsSize,&returnSize);
+    for(int i=0;i<returnSize;i++)
+    {
+        printf("%d ",b[i]);
+    }
+}
