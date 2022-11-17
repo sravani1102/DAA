@@ -1,0 +1,30 @@
+https://leetcode.com/problems/maximum-units-on-a-truck/
+
+int maximumUnits(int** boxTypes, int boxTypesSize, int* boxTypesColSize, int truckSize)
+{
+    int i=0,max,k,c=0,m;
+    while(i<truckSize)
+    {
+        max=0;
+        for(int j=0;j<boxTypesSize;j++)
+        {
+            if(max<boxTypes[j][1])
+            {
+                max=boxTypes[j][1];
+                m=j;
+                if(i+boxTypes[j][0]>truckSize)
+                {
+                    k=truckSize-i;
+                }
+                else
+                {
+                    k=boxTypes[j][0];
+                }
+            }
+        }
+        c=c+max*k;
+        i=i+k;
+        boxTypes[m][1]=0;
+    }
+    return c;
+}
