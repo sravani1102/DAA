@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+char * reverseWords(char * s){
+    int i=0,top=0,k=0;
+    char stack[strlen(s)][strlen(s)],*s1,c;
+    s1=(char *)malloc(1000*sizeof(char));
+    while(s[i]!='\0')
+    {
+        c=s[i];
+        if(c!=' ')
+        {
+            stack[top][k]=c;
+            stack[top][k+1]='\0';
+            k++;
+        }
+        else
+        {
+            if(stack[top][0]!='\0')
+            {
+                top=top+1;
+                k=0;
+            }
+        }
+        i++;
+    }  
+    int z=0;
+    while(top>=0)
+    {
+        int y=0;
+        while(stack[top][y]!='\0')
+        {
+            s1[z]=stack[top][y];
+            s1[z+1]='\0';
+            z++;
+            y++;
+        }
+        if(top!=0)
+        {
+            s1[z]=' ';
+            s1[z+1]='\0';
+            z++;
+        }
+        top--;
+    }
+    printf("%s",s1);
+    return s1;
+}
+void main()
+{
+    char *s,*s1;
+    s=(char *)malloc(1000*sizeof(char));
+    s1=(char *)malloc(1000*sizeof(char));
+    s="the sky is Blue";
+    s1=reverseWords(s);
+    printf("%s",s1);
+}
