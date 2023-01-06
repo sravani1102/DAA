@@ -3,8 +3,9 @@
 #include<string.h>
 char * reverseWords(char * s){
     int i=0,top=0,k=0;
-    char stack[strlen(s)][strlen(s)],*s1,c;
+    char *stack[strlen(s)][strlen(s)],*s1,c;
     s1=(char *)malloc(1000*sizeof(char));
+    stack[top][0]='\0';
     while(s[i]!='\0')
     {
         c=s[i];
@@ -19,12 +20,14 @@ char * reverseWords(char * s){
             if(stack[top][0]!='\0')
             {
                 top=top+1;
+                stack[top][0]='\0';
                 k=0;
             }
         }
         i++;
     }  
-    int z=0;
+    int z=0,q=0;
+    //top--;
     while(top>=0)
     {
         int y=0;
@@ -35,7 +38,9 @@ char * reverseWords(char * s){
             z++;
             y++;
         }
-        if(top!=0)
+        //printf(" ");
+        
+        if(top>0 && stack[top][0]!='\0')
         {
             s1[z]=' ';
             s1[z+1]='\0';
@@ -43,15 +48,15 @@ char * reverseWords(char * s){
         }
         top--;
     }
-    printf("%s",s1);
     return s1;
 }
-void main()
+int main()
 {
     char *s,*s1;
     s=(char *)malloc(1000*sizeof(char));
     s1=(char *)malloc(1000*sizeof(char));
-    s="the sky is Blue";
+    s="  hello world  ";
     s1=reverseWords(s);
     printf("%s",s1);
+    return 0;
 }
