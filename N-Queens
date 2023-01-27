@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+int x[100];
+int c=0;
+int abs(int a)
+{
+        if(a<0)
+                return -1*a;
+        return a;
+}
+int place(int i,int k)
+{
+        for(int j=1;j<=k-1;j++)
+        {
+                if(x[j]==i || abs(x[j]-i)==abs(j-k))
+                {
+                        return 0;
+                }
+        }
+        return 1;
+}
+void display(int n)
+{
+        for(int i=1;i<=n;i++)
+                printf("%d ",x[i]);
+        printf("\n");
+}
+
+void Nqueen(int k,int n)
+{
+    for(int i=1;i<=n;i++)
+    {
+        if(place(i,k))
+        {
+            x[k]=i;
+            if(k==n)
+            {
+                c++;
+                display(n);
+                return;
+            }
+            else{
+                Nqueen(k+1,n);
+            }
+        }
+    }
+}
+void main()
+{
+        int n=4;
+        printf("Enter n:");
+        scanf("%d",&n);
+        for(int i=1;i<=n;i++)
+        {
+                x[i]=0;
+        }
+        Nqueen(1,n);
+}
